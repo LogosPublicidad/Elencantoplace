@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#173d31">
   <title>El Encanto · Costa Rica</title>
+
   <style>
     :root {
       --verde: #173d31;
@@ -12,7 +13,9 @@
       --dorado: #efcf87;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -25,10 +28,14 @@
       position: relative;
       isolation: isolate;
       overflow: hidden;
-      padding: 3rem 1rem 4rem;
+      padding: clamp(2rem, 5vw, 4rem) 1rem 4rem;
       text-align: center;
       color: var(--crema);
-      background: radial-gradient(ellipse at top, #356b55, #122e26 80%);
+      background: radial-gradient(
+        ellipse at top,
+        #356b55,
+        #122e26 80%
+      );
       border-bottom: 4px solid var(--dorado);
     }
 
@@ -59,15 +66,20 @@
 
     .emblema {
       display: block;
-      width: 56px;
-      height: 56px;
+      width: clamp(110px, 22vw, 240px);
+      max-width: 100%;
+      height: auto;
       margin: 0 auto 1rem;
       object-fit: contain;
     }
 
-    .emblema[hidden] { display: none; }
+    .emblema[hidden] {
+      display: none;
+    }
 
-    .portada p { margin: 0; }
+    .portada p {
+      margin: 0;
+    }
 
     .pais {
       color: var(--dorado);
@@ -114,10 +126,24 @@
       transition: background .15s, border-color .15s;
     }
 
-    a:hover { background: #e9f0e5; border-color: #819b86; }
-    a:focus-visible { outline: 3px solid #9b611c; outline-offset: 3px; }
-    .reserva { background: var(--dorado); border-color: #c7a265; }
-    .reserva:hover { background: #f7dda3; }
+    a:hover {
+      background: #e9f0e5;
+      border-color: #819b86;
+    }
+
+    a:focus-visible {
+      outline: 3px solid #9b611c;
+      outline-offset: 3px;
+    }
+
+    .reserva {
+      background: var(--dorado);
+      border-color: #c7a265;
+    }
+
+    .reserva:hover {
+      background: #f7dda3;
+    }
 
     .icono {
       display: grid;
@@ -129,10 +155,23 @@
       font-weight: bold;
     }
 
-    .reserva .icono { background: #fae7bd; }
-    .texto { min-width: 0; overflow-wrap: anywhere; }
-    .flecha { margin-left: auto; }
-    small { display: block; color: #475d51; }
+    .reserva .icono {
+      background: #fae7bd;
+    }
+
+    .texto {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .flecha {
+      margin-left: auto;
+    }
+
+    small {
+      display: block;
+      color: #475d51;
+    }
 
     footer {
       padding: 2rem 1rem;
@@ -141,24 +180,44 @@
     }
 
     @media (max-width: 520px) {
-      .grupo { grid-template-columns: 1fr; }
+      .grupo {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .portada-video { display: none; }
-      a { transition: none; }
+      .portada-video {
+        display: none;
+      }
+
+      a {
+        transition: none;
+      }
     }
   </style>
 </head>
+
 <body>
   <header class="portada">
-    <video class="portada-video" autoplay muted loop playsinline aria-hidden="true">
+    <video
+      class="portada-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      aria-hidden="true"
+    >
       <source src="./Portada.mp4" type="video/mp4">
     </video>
 
     <div class="portada-contenido">
-      <img class="emblema" src="./Logo.svg" alt="Logo de El Encanto"
-           onerror="this.onerror = () => { this.hidden = true; }; this.src = './Logo.png';">
+      <img
+        class="emblema"
+        src="./Logo.svg"
+        alt="Logo de El Encanto"
+        onerror="this.onerror = () => { this.hidden = true; }; this.src = './Logo.png';"
+      >
+
       <p class="pais">Costa Rica</p>
       <h1>El Encanto</h1>
       <p>Reserva tu estadía, contáctanos o encuentra cómo llegar.</p>
@@ -166,8 +225,12 @@
   </header>
 
   <main>
-    <a class="reserva" href="https://airbnb.com/h/elencantoestate"
-       target="_blank" rel="noopener">
+    <a
+      class="reserva"
+      href="https://airbnb.com/h/elencantoestate"
+      target="_blank"
+      rel="noopener"
+    >
       <span class="icono" aria-hidden="true">⌂</span>
       <span class="texto">
         <strong>Reservar en Airbnb</strong>
@@ -178,15 +241,23 @@
 
     <section>
       <h2>Contáctanos</h2>
+
       <div class="grupo">
         <a href="tel:+50683913653">
           <span class="icono" aria-hidden="true">☎</span>
-          <span class="texto"><strong>Llamar</strong><small>+506 8391-3653</small></span>
+          <span class="texto">
+            <strong>Llamar</strong>
+            <small>+506 8391-3653</small>
+          </span>
           <span class="flecha" aria-hidden="true">→</span>
         </a>
+
         <a href="mailto:elencantocr@gmail.com">
           <span class="icono" aria-hidden="true">✉</span>
-          <span class="texto"><strong>Enviar correo</strong><small>elencantocr@gmail.com</small></span>
+          <span class="texto">
+            <strong>Enviar correo</strong>
+            <small>elencantocr@gmail.com</small>
+          </span>
           <span class="flecha" aria-hidden="true">→</span>
         </a>
       </div>
@@ -194,17 +265,31 @@
 
     <section>
       <h2>Cómo llegar</h2>
+
       <div class="grupo">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Elencantodreamfarm%2C+Costa+Rica"
-           target="_blank" rel="noopener">
+        <a
+          href="https://www.google.com/maps/search/?api=1&amp;query=Elencantodreamfarm%2C+Costa+Rica"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="icono" aria-hidden="true">⌖</span>
-          <span class="texto"><strong>El Encanto Dream Farm</strong><small>Buscar en Google Maps</small></span>
+          <span class="texto">
+            <strong>El Encanto Dream Farm</strong>
+            <small>Buscar en Google Maps</small>
+          </span>
           <span class="flecha" aria-hidden="true">↗</span>
         </a>
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Elencantoestate%2C+Costa+Rica"
-           target="_blank" rel="noopener">
+
+        <a
+          href="https://www.google.com/maps/search/?api=1&amp;query=Elencantoestate%2C+Costa+Rica"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="icono" aria-hidden="true">⌖</span>
-          <span class="texto"><strong>El Encanto Estate</strong><small>Buscar en Google Maps</small></span>
+          <span class="texto">
+            <strong>El Encanto Estate</strong>
+            <small>Buscar en Google Maps</small>
+          </span>
           <span class="flecha" aria-hidden="true">↗</span>
         </a>
       </div>
@@ -212,15 +297,23 @@
 
     <section>
       <h2>Síguenos</h2>
+
       <div class="grupo">
-        <a href="https://www.facebook.com/elencantodreamfarmcostarica/"
-           target="_blank" rel="noopener">
+        <a
+          href="https://www.facebook.com/elencantodreamfarmcostarica/"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="icono" aria-hidden="true">f</span>
           <strong>Facebook</strong>
           <span class="flecha" aria-hidden="true">↗</span>
         </a>
-        <a href="https://www.instagram.com/elencantodreamfarmcostarica/"
-           target="_blank" rel="noopener">
+
+        <a
+          href="https://www.instagram.com/elencantodreamfarmcostarica/"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="icono" aria-hidden="true">◎</span>
           <strong>Instagram</strong>
           <span class="flecha" aria-hidden="true">↗</span>
