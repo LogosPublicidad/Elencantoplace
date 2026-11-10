@@ -23,51 +23,31 @@
     }
 
     .portada {
-      position: relative;
-      isolation: isolate;
       display: grid;
       place-items: center;
       min-height: clamp(300px, 60svh, 660px);
       padding: 1.5rem 1rem 2.75rem;
-      overflow: hidden;
-      background: radial-gradient(ellipse at top, #356b55, #122e26 80%);
       border-bottom: 4px solid var(--dorado);
-    }
-
-    .portada-video,
-    .portada::after {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    .portada-video {
-      z-index: -2;
-      object-fit: cover;
-    }
-
-    .portada::after {
-      content: "";
-      z-index: -1;
-      background: linear-gradient(#122e2640, #122e2680);
+      background:
+        linear-gradient(#122e2640, #122e2680),
+        url("./portada.jpg") center / cover no-repeat,
+        radial-gradient(ellipse at top, #356b55, #122e26 80%);
+      background-color: var(--verde);
     }
 
     .emblema {
       display: block;
       width: min(92vw, 860px);
       max-width: 100%;
-      height: auto;
       max-height: min(48svh, 500px);
+      height: auto;
       object-fit: contain;
       filter: drop-shadow(0 4px 12px #0006);
     }
 
-    .emblema[hidden] { display: none; }
+    [hidden] { display: none !important; }
 
     main {
-      position: relative;
       width: min(92%, 660px);
       margin: 1rem auto 0;
     }
@@ -83,7 +63,7 @@
       gap: .7rem;
     }
 
-    a {
+    .enlace {
       display: flex;
       align-items: center;
       gap: .75rem;
@@ -95,15 +75,16 @@
       color: inherit;
       text-decoration: none;
       box-shadow: 0 4px 12px #173d3110;
-      transition: background .15s, border-color .15s;
     }
 
-    a:hover {
+    .enlace:hover {
       background: #e9f0e5;
       border-color: #819b86;
     }
 
-    a:focus-visible {
+    .enlace:focus-visible,
+    .reproducir:focus-visible,
+    video:focus-visible {
       outline: 3px solid #9b611c;
       outline-offset: 3px;
     }
@@ -132,6 +113,58 @@
     .flecha { margin-left: auto; }
     small { display: block; color: #475d51; }
 
+    .tarjeta-video {
+      min-width: 0;
+      margin: 0;
+      padding: .75rem;
+      border: 1px solid #dadccf;
+      border-radius: 15px;
+      background: #fffdf7;
+    }
+
+    .tarjeta-video figcaption {
+      margin-bottom: .5rem;
+      font-weight: 700;
+    }
+
+    .reproductor {
+      position: relative;
+      border-radius: 10px;
+      background: #122e26;
+    }
+
+    .reproductor video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: inherit;
+      object-fit: contain;
+    }
+
+    .reproducir {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      padding: .5rem;
+      border: 0;
+      border-radius: inherit;
+      background: #122e2640;
+      color: var(--verde);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .reproducir span {
+      padding: .6rem .9rem;
+      border-radius: 999px;
+      background: var(--dorado);
+    }
+
+    .reproducir:hover span { background: #f7dda3; }
+
     footer {
       padding: 2rem 1rem;
       text-align: center;
@@ -141,29 +174,21 @@
     @media (max-width: 520px) {
       .grupo { grid-template-columns: 1fr; }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      .portada-video { display: none; }
-      a { transition: none; }
-    }
   </style>
 </head>
+
 <body>
   <header class="portada">
-    <video class="portada-video" autoplay muted loop playsinline aria-hidden="true">
-      <source src="./Portada.mp4" type="video/mp4">
-    </video>
-
     <img
       class="emblema"
       src="./Logo.svg"
-      alt="Logo de El Encanto"
+      alt="El Encanto"
       onerror="this.onerror = () => { this.hidden = true; }; this.src = './Logo.png';"
     >
   </header>
 
   <main>
-    <a class="reserva" href="https://airbnb.com/h/elencantoestate"
+    <a class="enlace reserva" href="https://airbnb.com/h/elencantoestate"
        target="_blank" rel="noopener">
       <span class="icono" aria-hidden="true">⌂</span>
       <span class="texto">
@@ -176,15 +201,21 @@
     <section>
       <h2>Contáctanos</h2>
       <div class="grupo">
-        <a href="tel:+50683913653">
+        <a class="enlace" href="tel:+50683913653">
           <span class="icono" aria-hidden="true">☎</span>
-          <span class="texto"><strong>Llamar</strong><small>+506 8391-3653</small></span>
+          <span class="texto">
+            <strong>Llamar</strong>
+            <small>+506 8391-3653</small>
+          </span>
           <span class="flecha" aria-hidden="true">→</span>
         </a>
 
-        <a href="mailto:elencantocr@gmail.com">
+        <a class="enlace" href="mailto:elencantocr@gmail.com">
           <span class="icono" aria-hidden="true">✉</span>
-          <span class="texto"><strong>Enviar correo</strong><small>elencantocr@gmail.com</small></span>
+          <span class="texto">
+            <strong>Enviar correo</strong>
+            <small>elencantocr@gmail.com</small>
+          </span>
           <span class="flecha" aria-hidden="true">→</span>
         </a>
       </div>
@@ -193,17 +224,25 @@
     <section>
       <h2>Cómo llegar</h2>
       <div class="grupo">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Elencantodreamfarm%2C+Costa+Rica"
+        <a class="enlace"
+           href="https://www.google.com/maps/search/?api=1&amp;query=Elencantodreamfarm%2C+Costa+Rica"
            target="_blank" rel="noopener">
           <span class="icono" aria-hidden="true">⌖</span>
-          <span class="texto"><strong>El Encanto Dream Farm</strong><small>Buscar en Google Maps</small></span>
+          <span class="texto">
+            <strong>El Encanto Dream Farm</strong>
+            <small>Buscar en Google Maps</small>
+          </span>
           <span class="flecha" aria-hidden="true">↗</span>
         </a>
 
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Elencantoestate%2C+Costa+Rica"
+        <a class="enlace"
+           href="https://www.google.com/maps/search/?api=1&amp;query=Elencantoestate%2C+Costa+Rica"
            target="_blank" rel="noopener">
           <span class="icono" aria-hidden="true">⌖</span>
-          <span class="texto"><strong>El Encanto Estate</strong><small>Buscar en Google Maps</small></span>
+          <span class="texto">
+            <strong>El Encanto Estate</strong>
+            <small>Buscar en Google Maps</small>
+          </span>
           <span class="flecha" aria-hidden="true">↗</span>
         </a>
       </div>
@@ -212,14 +251,14 @@
     <section>
       <h2>Síguenos</h2>
       <div class="grupo">
-        <a href="https://www.facebook.com/elencantodreamfarmcostarica/"
+        <a class="enlace" href="https://www.facebook.com/elencantodreamfarmcostarica/"
            target="_blank" rel="noopener">
           <span class="icono" aria-hidden="true">f</span>
           <strong>Facebook</strong>
           <span class="flecha" aria-hidden="true">↗</span>
         </a>
 
-        <a href="https://www.instagram.com/elencantodreamfarmcostarica/"
+        <a class="enlace" href="https://www.instagram.com/elencantodreamfarmcostarica/"
            target="_blank" rel="noopener">
           <span class="icono" aria-hidden="true">◎</span>
           <strong>Instagram</strong>
@@ -227,9 +266,57 @@
         </a>
       </div>
     </section>
+
+    <section>
+      <h2>Videos</h2>
+      <div class="grupo">
+        <figure class="tarjeta-video">
+          <figcaption id="titulo-es">Español</figcaption>
+          <div class="reproductor">
+            <video id="video-es" src="./Video1.mp4" controls playsinline
+                   preload="metadata" aria-labelledby="titulo-es"></video>
+            <button class="reproducir" type="button" aria-controls="video-es"
+                    aria-label="Reproducir video en español con audio" hidden>
+              <span>▶ Reproducir con audio</span>
+            </button>
+          </div>
+        </figure>
+
+        <figure class="tarjeta-video">
+          <figcaption id="titulo-en">Inglés</figcaption>
+          <div class="reproductor">
+            <video id="video-en" src="./Video2.mp4" controls playsinline
+                   preload="metadata" aria-labelledby="titulo-en"></video>
+            <button class="reproducir" type="button" aria-controls="video-en"
+                    aria-label="Reproducir video en inglés con audio" hidden>
+              <span>▶ Reproducir con audio</span>
+            </button>
+          </div>
+        </figure>
+      </div>
+    </section>
   </main>
 
   <footer>El Encanto · Costa Rica</footer>
+
+  <script>
+    document.querySelectorAll(".reproducir").forEach((boton) => {
+      const video = document.getElementById(boton.getAttribute("aria-controls"));
+
+      boton.addEventListener("click", () => {
+        video.muted = false;
+        video.controls = true;
+        boton.hidden = true;
+        video.focus();
+
+        video.play().catch(() => {
+          // Los controles quedan disponibles si el navegador impide iniciar el video.
+        });
+      });
+
+      video.controls = false;
+      boton.hidden = false;
+    });
+  </script>
 </body>
 </html>
-```
