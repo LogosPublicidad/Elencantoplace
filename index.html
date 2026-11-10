@@ -45,7 +45,7 @@
       filter: drop-shadow(0 4px 12px #0006);
     }
 
-    [hidden] { display: none !important; }
+    .emblema[hidden] { display: none; }
 
     main {
       width: min(92%, 660px);
@@ -83,8 +83,7 @@
     }
 
     .enlace:focus-visible,
-    .reproducir:focus-visible,
-    video:focus-visible {
+    iframe:focus-visible {
       outline: 3px solid #9b611c;
       outline-offset: 3px;
     }
@@ -127,43 +126,15 @@
       font-weight: 700;
     }
 
-    .reproductor {
-      position: relative;
-      border-radius: 10px;
-      background: #122e26;
-    }
-
-    .reproductor video {
+    .tarjeta-video iframe {
       display: block;
       width: 100%;
       aspect-ratio: 16 / 9;
-      border-radius: inherit;
-      object-fit: contain;
-    }
-
-    .reproducir {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      width: 100%;
-      padding: .5rem;
+      min-height: 200px;
       border: 0;
-      border-radius: inherit;
-      background: #122e2640;
-      color: var(--verde);
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
+      border-radius: 10px;
+      background: #122e26;
     }
-
-    .reproducir span {
-      padding: .6rem .9rem;
-      border-radius: 999px;
-      background: var(--dorado);
-    }
-
-    .reproducir:hover span { background: #f7dda3; }
 
     footer {
       padding: 2rem 1rem;
@@ -251,14 +222,16 @@
     <section>
       <h2>Síguenos</h2>
       <div class="grupo">
-        <a class="enlace" href="https://www.facebook.com/elencantodreamfarmcostarica/"
+        <a class="enlace"
+           href="https://www.facebook.com/elencantodreamfarmcostarica/"
            target="_blank" rel="noopener">
           <span class="icono" aria-hidden="true">f</span>
           <strong>Facebook</strong>
           <span class="flecha" aria-hidden="true">↗</span>
         </a>
 
-        <a class="enlace" href="https://www.instagram.com/elencantodreamfarmcostarica/"
+        <a class="enlace"
+           href="https://www.instagram.com/elencantodreamfarmcostarica/"
            target="_blank" rel="noopener">
           <span class="icono" aria-hidden="true">◎</span>
           <strong>Instagram</strong>
@@ -271,52 +244,32 @@
       <h2>Videos</h2>
       <div class="grupo">
         <figure class="tarjeta-video">
-          <figcaption id="titulo-es">Español</figcaption>
-          <div class="reproductor">
-            <video id="video-es" src="./Video1.mp4" controls playsinline
-                   preload="metadata" aria-labelledby="titulo-es"></video>
-            <button class="reproducir" type="button" aria-controls="video-es"
-                    aria-label="Reproducir video en español con audio" hidden>
-              <span>▶ Reproducir con audio</span>
-            </button>
-          </div>
+          <figcaption>Español</figcaption>
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/hM7d_PJMQ_0?playsinline=1"
+            title="El Encanto — video en español"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="encrypted-media; picture-in-picture"
+            allowfullscreen
+          ></iframe>
         </figure>
 
         <figure class="tarjeta-video">
-          <figcaption id="titulo-en">Inglés</figcaption>
-          <div class="reproductor">
-            <video id="video-en" src="./Video2.mp4" controls playsinline
-                   preload="metadata" aria-labelledby="titulo-en"></video>
-            <button class="reproducir" type="button" aria-controls="video-en"
-                    aria-label="Reproducir video en inglés con audio" hidden>
-              <span>▶ Reproducir con audio</span>
-            </button>
-          </div>
+          <figcaption>Inglés</figcaption>
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/WmfxkQgkWI4?playsinline=1"
+            title="El Encanto — video en inglés"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="encrypted-media; picture-in-picture"
+            allowfullscreen
+          ></iframe>
         </figure>
       </div>
     </section>
   </main>
 
   <footer>El Encanto · Costa Rica</footer>
-
-  <script>
-    document.querySelectorAll(".reproducir").forEach((boton) => {
-      const video = document.getElementById(boton.getAttribute("aria-controls"));
-
-      boton.addEventListener("click", () => {
-        video.muted = false;
-        video.controls = true;
-        boton.hidden = true;
-        video.focus();
-
-        video.play().catch(() => {
-          // Los controles quedan disponibles si el navegador impide iniciar el video.
-        });
-      });
-
-      video.controls = false;
-      boton.hidden = false;
-    });
-  </script>
 </body>
 </html>
