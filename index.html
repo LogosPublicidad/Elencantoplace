@@ -21,7 +21,10 @@
       font: 1rem/1.5 system-ui, sans-serif;
     }
 
-    header {
+    .portada {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
       padding: 3rem 1rem 4rem;
       text-align: center;
       color: var(--crema);
@@ -29,12 +32,42 @@
       border-bottom: 4px solid var(--dorado);
     }
 
+    .portada-video,
+    .portada::before {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .portada-video {
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .portada::before {
+      content: "";
+      z-index: 1;
+      background: linear-gradient(#122e2680, #122e26b3);
+    }
+
+    .portada-contenido {
+      position: relative;
+      z-index: 2;
+    }
+
     .emblema {
       display: block;
       width: 56px;
+      height: 56px;
       margin: 0 auto 1rem;
-      color: var(--dorado);
+      object-fit: contain;
     }
+
+    .emblema[hidden] { display: none; }
+
+    .portada p { margin: 0; }
 
     .pais {
       color: var(--dorado);
@@ -48,10 +81,9 @@
       font: clamp(3rem, 12vw, 6rem)/1 Georgia, serif;
     }
 
-    header p { margin: 0; }
-
     main {
       position: relative;
+      z-index: 1;
       width: min(92%, 660px);
       margin: -1.6rem auto 0;
     }
@@ -111,26 +143,36 @@
     @media (max-width: 520px) {
       .grupo { grid-template-columns: 1fr; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .portada-video { display: none; }
+      a { transition: none; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <svg class="emblema" viewBox="0 0 64 64" fill="none"
-         stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <circle cx="32" cy="32" r="30"/>
-      <path d="M18 47c10-5 19-15 24-29-15 2-24 10-23 21 13 3 23-6 23-21"
-            stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <p class="pais">Costa Rica</p>
-    <h1>El Encanto</h1>
-    <p>Reserva tu estadía, contáctanos o encuentra cómo llegar.</p>
+  <header class="portada">
+    <video class="portada-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="./Portada.mp4" type="video/mp4">
+    </video>
+
+    <div class="portada-contenido">
+      <img class="emblema" src="./Logo.svg" alt="Logo de El Encanto"
+           onerror="this.onerror = () => { this.hidden = true; }; this.src = './Logo.png';">
+      <p class="pais">Costa Rica</p>
+      <h1>El Encanto</h1>
+      <p>Reserva tu estadía, contáctanos o encuentra cómo llegar.</p>
+    </div>
   </header>
 
   <main>
     <a class="reserva" href="https://airbnb.com/h/elencantoestate"
        target="_blank" rel="noopener">
       <span class="icono" aria-hidden="true">⌂</span>
-      <span class="texto"><strong>Reservar en Airbnb</strong><small>El Encanto Estate</small></span>
+      <span class="texto">
+        <strong>Reservar en Airbnb</strong>
+        <small>El Encanto Estate</small>
+      </span>
       <span class="flecha" aria-hidden="true">↗</span>
     </a>
 
